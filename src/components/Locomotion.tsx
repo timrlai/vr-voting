@@ -1,7 +1,7 @@
 import { useRef } from "react";
+import { type Group } from "three";
 import { useFrame } from "@react-three/fiber";
 import { useXRInputSourceState, XROrigin } from "@react-three/xr";
-import { type Group } from "three";
 
 export default function Locomotion() {
   const rightController = useXRInputSourceState("controller", "right");

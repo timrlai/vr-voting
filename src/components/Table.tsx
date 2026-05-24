@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import { useLoader } from "@react-three/fiber";
 import type { Mesh } from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { useLoader } from "@react-three/fiber";
 
 type TableProps = {
   position?: [number, number, number];

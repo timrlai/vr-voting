@@ -1,7 +1,8 @@
+import { MeshStandardMaterial } from "three";
 import { useTexture } from "@react-three/drei";
+
 import ballotBoxBlankTexture from "../assets/img/textures/ballot_box_blank.webp";
 import ballotBoxLogoTexture from "../assets/img/textures/ballot_box_logo.webp";
-import { MeshStandardMaterial } from "three";
 
 export default function BallotBox() {
   const blankTexture = useTexture(ballotBoxBlankTexture);

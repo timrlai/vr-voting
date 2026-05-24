@@ -1,8 +1,4 @@
 import { useRef, useState, useEffect, useLayoutEffect } from "react";
-import { type ThreeEvent, useFrame, useThree } from "@react-three/fiber";
-import { useGLTF, useAnimations } from "@react-three/drei";
-import { useXRInputSourceState } from "@react-three/xr";
-import { BookOpenCheck, ThumbsDown, ThumbsUp } from "@react-three/uikit-lucide";
 import {
   type Object3D,
   type Mesh,
@@ -14,6 +10,10 @@ import {
   Vector2,
   LoopOnce,
 } from "three";
+import { type ThreeEvent, useFrame, useThree } from "@react-three/fiber";
+import { useGLTF, useAnimations } from "@react-three/drei";
+import { useXRInputSourceState } from "@react-three/xr";
+import { BookOpenCheck, ThumbsDown, ThumbsUp } from "@react-three/uikit-lucide";
 
 import ballotFront from "/models/ballot_front.webp";
 import ballotBack from "/models/ballot_back.webp";

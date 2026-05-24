@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ClampToEdgeWrapping, FileLoader } from "three";
-import { useTexture, Billboard } from "@react-three/drei";
 import { useFrame, useLoader } from "@react-three/fiber";
+import { useTexture, Billboard } from "@react-three/drei";
 
 import returningOfficerTexture from "../assets/img/sprites/timrlai_spritesheet.png";
 
