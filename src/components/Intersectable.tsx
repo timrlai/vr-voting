@@ -1,6 +1,5 @@
+import { type JSX, useRef, useEffect } from "react";
 import { type Mesh, Box3 } from "three";
-import { useEffect } from "react";
-import { useRef, type JSX } from "react";
 
 type IntersectableProps = {
   position?: [number, number, number];
