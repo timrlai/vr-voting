@@ -10,22 +10,22 @@ export default function Locomotion() {
   const originRef = useRef<Group>(null);
 
   useFrame((_, delta) => {
-    if (
-      groupRef.current == null ||
-      originRef.current == null ||
-      rightController == null ||
-      leftController == null
-    )
-      return;
-    const rightStickState = rightController.gamepad["xr-standard-thumbstick"];
-    const leftStickState = leftController.gamepad["xr-standard-thumbstick"];
+    if (rightController != null && groupRef.current != null) {
+      const rightStickState = rightController.gamepad["xr-standard-thumbstick"];
 
-    if (rightStickState == null || leftStickState == null) return;
+      if (rightStickState != null) {
+        groupRef.current.position.x += (rightStickState.xAxis ?? 0) * delta * 2;
+        groupRef.current.position.z += (rightStickState.yAxis ?? 0) * delta * 2;
+      }
+    }
 
-    groupRef.current.position.x += (rightStickState.xAxis ?? 0) * delta * 2;
-    groupRef.current.position.z += (rightStickState.yAxis ?? 0) * delta * 2;
+    if (leftController != null && originRef.current != null) {
+      const leftStickState = leftController.gamepad["xr-standard-thumbstick"];
 
-    originRef.current.rotation.y += (leftStickState.yAxis ?? 0) * delta;
+      if (leftStickState != null) {
+        originRef.current.rotation.y += (leftStickState.yAxis ?? 0) * delta;
+      }
+    }
   });
 
   return (
