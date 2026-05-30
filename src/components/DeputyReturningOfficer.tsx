@@ -24,7 +24,7 @@ export default function DeputyReturningOfficer({
   rotation = [0, 0, 0],
   scale = 1,
 }: DeputyReturningOfficerProps) {
-  const returningOfficerTexture = "/sprites/timrlai_spritesheet.png";
+  const returningOfficerTexture = "/textures/timrlai_spritesheet.png";
   const texture = useTexture(returningOfficerTexture, (texture) => {
     texture.wrapS = ClampToEdgeWrapping;
     texture.wrapT = ClampToEdgeWrapping;
