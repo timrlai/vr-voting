@@ -2,8 +2,6 @@ import { useXR } from "@react-three/xr";
 import { Hud, PerspectiveCamera } from "@react-three/drei";
 import { useTTF, Container, Text } from "@react-three/uikit";
 
-import specialGothicCondensed from "../assets/fonts/SpecialGothicCondensedOne-Regular.ttf";
-
 type InstructionsProps = {
   isGrabbed: boolean;
   isOpened: boolean;
@@ -17,6 +15,7 @@ export default function Instructions({
   isConfirmed,
   isPlaced,
 }: InstructionsProps) {
+  const specialGothicCondensed = "/fonts/SpecialGothicCondensedOne-Regular.ttf";
   const { session } = useXR();
   const fontFamilies = useTTF(specialGothicCondensed);
   return (
