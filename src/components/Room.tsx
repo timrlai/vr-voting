@@ -7,9 +7,9 @@ import {
 import { useTexture, Environment } from "@react-three/drei";
 
 export default function Room() {
-  const ceilingTextureImg = "/img/textures/ceiling.webp";
-  const wallTextureImg = "/img/textures/wall.webp";
-  const floorTextureImg = "/img/textures/floor.webp";
+  const ceilingTextureImg = "/textures/ceiling.webp";
+  const wallTextureImg = "/textures/wall.webp";
+  const floorTextureImg = "/textures/floor.webp";
   const ceilingTexture = useTexture(ceilingTextureImg, (texture) => {
     texture.wrapS = RepeatWrapping;
     texture.wrapT = RepeatWrapping;
