@@ -3,8 +3,6 @@ import { ClampToEdgeWrapping, FileLoader } from "three";
 import { useFrame, useLoader } from "@react-three/fiber";
 import { useTexture, Billboard } from "@react-three/drei";
 
-import returningOfficerTexture from "../assets/img/sprites/timrlai_spritesheet.png";
-
 type DeputyReturningOfficerProps = {
   position?: [number, number, number];
   rotation?: [number, number, number];
@@ -26,6 +24,7 @@ export default function DeputyReturningOfficer({
   rotation = [0, 0, 0],
   scale = 1,
 }: DeputyReturningOfficerProps) {
+  const returningOfficerTexture = "/img/sprites/timrlai_spritesheet.png";
   const texture = useTexture(returningOfficerTexture, (texture) => {
     texture.wrapS = ClampToEdgeWrapping;
     texture.wrapT = ClampToEdgeWrapping;

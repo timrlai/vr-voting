@@ -15,9 +15,6 @@ import { useGLTF, useAnimations } from "@react-three/drei";
 import { useXRInputSourceState } from "@react-three/xr";
 import { BookOpenCheck, ThumbsDown, ThumbsUp } from "@react-three/uikit-lucide";
 
-import ballotFront from "/models/ballot_front.webp";
-import ballotBack from "/models/ballot_back.webp";
-
 type BallotProps = {
   position?: [number, number, number];
   rotation?: [number, number, number];
@@ -39,6 +36,8 @@ export default function Ballot({
   onOpened,
   onConfirmed,
 }: BallotProps) {
+  const ballotFront = "/models/ballot_front.webp";
+  const ballotBack = "/models/ballot_back.webp";
   const groupRef = useRef<Object3D>(null);
   const ballotRef = useRef<Object3D>(null);
   const { scene: ballotModel, animations } = useGLTF("/models/ballot.gltf");
