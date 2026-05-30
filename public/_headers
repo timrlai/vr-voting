@@ -3,3 +3,15 @@
   Cross-Origin-Embedder-Policy: require-corp
   Cross-Origin-Resource-Policy: same-origin
   Permissions-Policy: xr-spatial-tracking=(self)
+
+/textures/*
+  Cache-Control: no-transform
+
+/*.png
+  Cache-Control: no-transform
+
+/*.webp
+  Cache-Control: no-transform
+
+/assets/*
+  Cache-Control: no-transform
