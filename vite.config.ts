@@ -7,4 +7,7 @@ export default defineConfig({
   // server: { host: true, https: false, strictPort: true, allowedHosts: true },
   plugins: [react(), basicSsl()],
   base: "/",
+  build: {
+    assetsDir: "",
+  },
 });
