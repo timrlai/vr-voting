@@ -14,15 +14,11 @@ function XRFallback({ store }: XRFallbackProps) {
   return null;
 }
 
-export default function XRScene({ children, setXrStore }: XRSceneProps) {
-  const store = useMemo(
-    () =>
-      createXRStore({
-        controller: { rayPointer: { rayModel: { color: "red" } } },
-      }),
-    [],
-  );
+const store = createXRStore({
+  controller: { rayPointer: { rayModel: { color: "red" } } },
+});
 
+export default function XRScene({ children, setXrStore }: XRSceneProps) {
   if (store) setXrStore(store);
 
   return store ? (
