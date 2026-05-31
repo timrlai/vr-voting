@@ -41,6 +41,7 @@ export default function App() {
   const onEnterXr = () => {
     if (!store) return;
     store.enterVR().then((session) => {
+      console.log("session:", session);
       if (session) setXrSession(session);
     });
   };
@@ -111,23 +112,25 @@ export default function App() {
 
             <OrbitControls />
 
-            <Suspense
-              fallback={
-                <XRComponentsFallback store={store} session={xrSession} />
-              }
-            >
-              <Ballot
-                position={[-4, -0.5, 0]}
-                onDragged={(box) => {
-                  if (!isGrabbed) setIsGrabbed(true);
-                  setBox(box);
-                }}
-                onOpened={() => setIsOpened(true)}
-                onConfirmed={() => setIsConfirmed(true)}
-              />
+            {xrSession && (
+              <Suspense
+                fallback={
+                  <XRComponentsFallback store={store} session={xrSession} />
+                }
+              >
+                <Ballot
+                  position={[-4, -0.5, 0]}
+                  onDragged={(box) => {
+                    if (!isGrabbed) setIsGrabbed(true);
+                    setBox(box);
+                  }}
+                  onOpened={() => setIsOpened(true)}
+                  onConfirmed={() => setIsConfirmed(true)}
+                />
 
-              <Locomotion />
-            </Suspense>
+                <Locomotion />
+              </Suspense>
+            )}
           </Suspense>
         </XR>
       </Canvas>
