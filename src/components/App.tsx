@@ -86,7 +86,7 @@ export default function App() {
         </button>
       </nav>
       <Canvas shadows>
-        <XR store={store}>
+        {!xrSession && (
           <Suspense fallback={null}>
             <Intersectable
               position={[0, 0.55, 0]}
@@ -106,34 +106,59 @@ export default function App() {
 
             <Room />
 
-            <Instructions
-              isGrabbed={isGrabbed}
-              isOpened={isOpened}
-              isConfirmed={isConfirmed}
-              isPlaced={isPlaced}
-            />
-
             <OrbitControls />
-
-            <Suspense
-              fallback={
-                <XRComponentsFallback store={store} session={xrSession} />
-              }
-            >
-              <Ballot
-                position={[-4, -0.5, 0]}
-                onDragged={(box) => {
-                  if (!isGrabbed) setIsGrabbed(true);
-                  setBox(box);
+          </Suspense>
+        )}
+        {xrSession && (
+          <XR store={store}>
+            <Suspense fallback={null}>
+              <Intersectable
+                position={[0, 0.55, 0]}
+                box={box}
+                onIntersect={() => {
+                  if (isConfirmed) setIsPlaced(true);
                 }}
-                onOpened={() => setIsOpened(true)}
-                onConfirmed={() => setIsConfirmed(true)}
+              >
+                <BallotBox />
+              </Intersectable>
+
+              <Table position={[-6, -2, 1]} />
+              <DeputyReturningOfficer position={[-5, 0, -3]} />
+
+              <Screen position={[7.5, -0.4, -10]} />
+              <Table position={[6, -2, -10]} />
+
+              <Room />
+
+              <Instructions
+                isGrabbed={isGrabbed}
+                isOpened={isOpened}
+                isConfirmed={isConfirmed}
+                isPlaced={isPlaced}
               />
 
-              <Locomotion />
+              <OrbitControls />
+
+              <Suspense
+                fallback={
+                  <XRComponentsFallback store={store} session={xrSession} />
+                }
+              >
+                <Ballot
+                  position={[-4, -0.5, 0]}
+                  onDragged={(box) => {
+                    if (!isGrabbed) setIsGrabbed(true);
+                    setBox(box);
+                  }}
+                  onOpened={() => setIsOpened(true)}
+                  onConfirmed={() => setIsConfirmed(true)}
+                />
+
+                <Locomotion />
+              </Suspense>
             </Suspense>
-          </Suspense>
-        </XR>
+          </XR>
+        )}
       </Canvas>
       <footer>
         <p>
