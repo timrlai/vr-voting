@@ -1,5 +1,5 @@
 import { Box3 } from "three";
-import { Suspense, useCallback, useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { type XRStore } from "@react-three/xr";
 import { OrbitControls } from "@react-three/drei";
@@ -36,12 +36,12 @@ export default function App() {
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [isPlaced, setIsPlaced] = useState(false);
 
-  const onEnterXr = useCallback(() => {
+  const onEnterXr = () => {
     if (!xrStore) return;
     xrStore.enterVR().then((session) => {
       if (session) setXrSession(session);
     });
-  }, [xrStore]);
+  };
 
   useEffect(() => {
     // Make sure this is actually running
