@@ -1,18 +1,18 @@
-import { Box3 } from "three";
-import { Suspense, useState } from "react";
+// import { Box3 } from "three";
+import { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { createXRStore } from "@react-three/xr";
 import { OrbitControls } from "@react-three/drei";
 
-import Intersectable from "./Intersectable";
-import BallotBox from "./BallotBox";
+// import Intersectable from "./Intersectable";
+// import BallotBox from "./BallotBox";
 import Table from "./Table";
 import DeputyReturningOfficer from "./DeputyReturningOfficer";
 import Screen from "./Screen";
-import Ballot from "./Ballot";
+// import Ballot from "./Ballot";
 import Room from "./Room";
-import Locomotion from "./Locomotion";
-import Instructions from "./Instructions";
+// import Locomotion from "./Locomotion";
+// import Instructions from "./Instructions";
 
 const store = createXRStore({
   controller: { rayPointer: { rayModel: { color: "red" } } },
@@ -24,11 +24,11 @@ function Fallback() {
 }
 
 export default function App() {
-  const [box, setBox] = useState<Box3 | null>(null);
-  const [isGrabbed, setIsGrabbed] = useState(false);
-  const [isOpened, setIsOpened] = useState(false);
-  const [isConfirmed, setIsConfirmed] = useState(false);
-  const [isPlaced, setIsPlaced] = useState(false);
+  // const [box, setBox] = useState<Box3 | null>(null);
+  // const [isGrabbed, setIsGrabbed] = useState(false);
+  // const [isOpened, setIsOpened] = useState(false);
+  // const [isConfirmed, setIsConfirmed] = useState(false);
+  // const [isPlaced, setIsPlaced] = useState(false);
 
   return (
     <main>
@@ -51,7 +51,7 @@ export default function App() {
       >
         <Suspense fallback={<Fallback />}>
           {/* <XR store={store}> */}
-          <Intersectable
+          {/* <Intersectable
             position={[0, 0.55, 0]}
             box={box}
             onIntersect={() => {
@@ -59,8 +59,8 @@ export default function App() {
             }}
           >
             <BallotBox />
-          </Intersectable>
-          <Ballot
+          </Intersectable> */}
+          {/* <Ballot
             position={[-4, -0.5, 0]}
             onDragged={(box) => {
               if (!isGrabbed) setIsGrabbed(true);
@@ -68,7 +68,7 @@ export default function App() {
             }}
             onOpened={() => setIsOpened(true)}
             onConfirmed={() => setIsConfirmed(true)}
-          />
+          /> */}
 
           <Table position={[-6, -2, 1]} />
           <DeputyReturningOfficer position={[-5, 0, -3]} />
@@ -78,14 +78,14 @@ export default function App() {
 
           <Room />
 
-          <Locomotion />
+          {/* <Locomotion />
 
           <Instructions
             isGrabbed={isGrabbed}
             isOpened={isOpened}
             isConfirmed={isConfirmed}
             isPlaced={isPlaced}
-          />
+          /> */}
 
           <OrbitControls />
           {/* </XR> */}
