@@ -37,6 +37,10 @@ export default function App() {
   const [isPlaced, setIsPlaced] = useState(false);
 
   const onEnterXr = async () => {
+    console.log("navigator.xr:", navigator.xr);
+    navigator.xr?.isSessionSupported("immersive-vr").then((supported) => {
+      console.log("immersive-vr supported:", supported);
+    });
     if (!xrStore) return;
     const session = await xrStore.enterVR();
     if (!session) return;
