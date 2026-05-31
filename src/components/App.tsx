@@ -18,6 +18,11 @@ const store = createXRStore({
   controller: { rayPointer: { rayModel: { color: "red" } } },
 });
 
+function Fallback() {
+  console.log("suspense fallbacka active");
+  return null;
+}
+
 export default function App() {
   const [box, setBox] = useState<Box3 | null>(null);
   const [isGrabbed, setIsGrabbed] = useState(false);
@@ -44,7 +49,7 @@ export default function App() {
           console.log("WebGL context created:", gl);
         }}
       >
-        <Suspense fallback={null}>
+        <Suspense fallback={<Fallback />}>
           <XR store={store}>
             <Intersectable
               position={[0, 0.55, 0]}
