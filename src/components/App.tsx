@@ -108,32 +108,34 @@ export default function App() {
 
             <OrbitControls />
 
-            <Suspense
-              fallback={
-                <XRComponentsFallback store={xrStore} session={xrSession} />
-              }
-            >
-              <Ballot
-                session={xrSession}
-                position={[-4, -0.5, 0]}
-                onDragged={(box) => {
-                  if (!isGrabbed) setIsGrabbed(true);
-                  setBox(box);
-                }}
-                onOpened={() => setIsOpened(true)}
-                onConfirmed={() => setIsConfirmed(true)}
-              />
+            {xrStore && (
+              <Suspense
+                fallback={
+                  <XRComponentsFallback store={xrStore} session={xrSession} />
+                }
+              >
+                <Ballot
+                  session={xrSession}
+                  position={[-4, -0.5, 0]}
+                  onDragged={(box) => {
+                    if (!isGrabbed) setIsGrabbed(true);
+                    setBox(box);
+                  }}
+                  onOpened={() => setIsOpened(true)}
+                  onConfirmed={() => setIsConfirmed(true)}
+                />
 
-              <Locomotion session={xrSession} />
+                <Locomotion session={xrSession} />
 
-              <Instructions
-                session={xrSession}
-                isGrabbed={isGrabbed}
-                isOpened={isOpened}
-                isConfirmed={isConfirmed}
-                isPlaced={isPlaced}
-              />
-            </Suspense>
+                <Instructions
+                  session={xrSession}
+                  isGrabbed={isGrabbed}
+                  isOpened={isOpened}
+                  isConfirmed={isConfirmed}
+                  isPlaced={isPlaced}
+                />
+              </Suspense>
+            )}
           </Suspense>
         </XRScene>
       </Canvas>
