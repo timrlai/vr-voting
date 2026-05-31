@@ -1,34 +1,34 @@
-// import { Box3 } from "three";
-import { Suspense } from "react";
+import { Box3 } from "three";
+import { Suspense, useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import { createXRStore } from "@react-three/xr";
+import { createXRStore, XR } from "@react-three/xr";
 import { OrbitControls } from "@react-three/drei";
 
-// import Intersectable from "./Intersectable";
-// import BallotBox from "./BallotBox";
+import Intersectable from "./Intersectable";
+import BallotBox from "./BallotBox";
 import Table from "./Table";
 import DeputyReturningOfficer from "./DeputyReturningOfficer";
 import Screen from "./Screen";
-// import Ballot from "./Ballot";
+import Ballot from "./Ballot";
 import Room from "./Room";
-// import Locomotion from "./Locomotion";
-// import Instructions from "./Instructions";
+import Locomotion from "./Locomotion";
+import Instructions from "./Instructions";
 
 const store = createXRStore({
   controller: { rayPointer: { rayModel: { color: "red" } } },
 });
 
 function Fallback() {
-  console.log("suspense fallback active");
+  console.log("suspense fallbacka active");
   return null;
 }
 
 export default function App() {
-  // const [box, setBox] = useState<Box3 | null>(null);
-  // const [isGrabbed, setIsGrabbed] = useState(false);
-  // const [isOpened, setIsOpened] = useState(false);
-  // const [isConfirmed, setIsConfirmed] = useState(false);
-  // const [isPlaced, setIsPlaced] = useState(false);
+  const [box, setBox] = useState<Box3 | null>(null);
+  const [isGrabbed, setIsGrabbed] = useState(false);
+  const [isOpened, setIsOpened] = useState(false);
+  const [isConfirmed, setIsConfirmed] = useState(false);
+  const [isPlaced, setIsPlaced] = useState(false);
 
   return (
     <main>
@@ -50,45 +50,45 @@ export default function App() {
         }}
       >
         <Suspense fallback={<Fallback />}>
-          {/* <XR store={store}> */}
-          {/* <Intersectable
-            position={[0, 0.55, 0]}
-            box={box}
-            onIntersect={() => {
-              if (isConfirmed) setIsPlaced(true);
-            }}
-          >
-            <BallotBox />
-          </Intersectable> */}
-          {/* <Ballot
-            position={[-4, -0.5, 0]}
-            onDragged={(box) => {
-              if (!isGrabbed) setIsGrabbed(true);
-              setBox(box);
-            }}
-            onOpened={() => setIsOpened(true)}
-            onConfirmed={() => setIsConfirmed(true)}
-          /> */}
+          <XR store={store}>
+            <Intersectable
+              position={[0, 0.55, 0]}
+              box={box}
+              onIntersect={() => {
+                if (isConfirmed) setIsPlaced(true);
+              }}
+            >
+              <BallotBox />
+            </Intersectable>
+            <Ballot
+              position={[-4, -0.5, 0]}
+              onDragged={(box) => {
+                if (!isGrabbed) setIsGrabbed(true);
+                setBox(box);
+              }}
+              onOpened={() => setIsOpened(true)}
+              onConfirmed={() => setIsConfirmed(true)}
+            />
 
-          <Table position={[-6, -2, 1]} />
-          <DeputyReturningOfficer position={[-5, 0, -3]} />
+            <Table position={[-6, -2, 1]} />
+            <DeputyReturningOfficer position={[-5, 0, -3]} />
 
-          <Screen position={[7.5, -0.4, -10]} />
-          <Table position={[6, -2, -10]} />
+            <Screen position={[7.5, -0.4, -10]} />
+            <Table position={[6, -2, -10]} />
 
-          <Room />
+            <Room />
 
-          {/* <Locomotion />
+            <Locomotion />
 
-          <Instructions
-            isGrabbed={isGrabbed}
-            isOpened={isOpened}
-            isConfirmed={isConfirmed}
-            isPlaced={isPlaced}
-          /> */}
+            <Instructions
+              isGrabbed={isGrabbed}
+              isOpened={isOpened}
+              isConfirmed={isConfirmed}
+              isPlaced={isPlaced}
+            />
 
-          <OrbitControls />
-          {/* </XR> */}
+            <OrbitControls />
+          </XR>
         </Suspense>
       </Canvas>
       <footer>
