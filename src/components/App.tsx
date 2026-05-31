@@ -19,7 +19,7 @@ const store = createXRStore({
 });
 
 function Fallback() {
-  console.log("suspense fallbacka active");
+  console.log("suspense fallback active");
   return null;
 }
 
@@ -50,8 +50,8 @@ export default function App() {
         }}
       >
         <Suspense fallback={<Fallback />}>
-          <XR store={store}>
-            <Intersectable
+          {/* <XR store={store}> */}
+          {/* <Intersectable
               position={[0, 0.55, 0]}
               box={box}
               onIntersect={() => {
@@ -74,21 +74,21 @@ export default function App() {
             <DeputyReturningOfficer position={[-5, 0, -3]} />
 
             <Screen position={[7.5, -0.4, -10]} />
-            <Table position={[6, -2, -10]} />
+            <Table position={[6, -2, -10]} /> */}
 
-            <Room />
+          <Room />
 
-            <Locomotion />
+          {/* <Locomotion />
 
             <Instructions
               isGrabbed={isGrabbed}
               isOpened={isOpened}
               isConfirmed={isConfirmed}
               isPlaced={isPlaced}
-            />
+            /> */}
 
-            <OrbitControls />
-          </XR>
+          <OrbitControls />
+          {/* </XR> */}
         </Suspense>
       </Canvas>
       <footer>
