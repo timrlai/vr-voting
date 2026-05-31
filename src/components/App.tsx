@@ -15,8 +15,8 @@ import Locomotion from "./Locomotion";
 import Instructions from "./Instructions";
 import XRScene from "./XRScene";
 
-function SceneFallback({ store }: { store: XRStore | null }) {
-  console.error("Scene not loaded");
+function XRComponentsFallback({ store }: { store: XRStore | null }) {
+  console.error("XR components in scene not loaded");
   console.error("XR store:", store);
   return null;
 }
@@ -52,7 +52,7 @@ export default function App() {
         }}
       >
         <XRScene setXrStore={setXrStore}>
-          <Suspense fallback={<SceneFallback store={xrStore} />}>
+          <Suspense fallback={null}>
             <Intersectable
               position={[0, 0.55, 0]}
               box={box}
@@ -71,8 +71,10 @@ export default function App() {
 
             <Room />
 
+            <OrbitControls />
+
             {xrStore && (
-              <Suspense fallback={<SceneFallback store={xrStore} />}>
+              <Suspense fallback={<XRComponentsFallback store={xrStore} />}>
                 <Ballot
                   position={[-4, -0.5, 0]}
                   onDragged={(box) => {
@@ -93,8 +95,6 @@ export default function App() {
                 />
               </Suspense>
             )}
-
-            <OrbitControls />
           </Suspense>
         </XRScene>
       </Canvas>
