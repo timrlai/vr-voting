@@ -38,7 +38,12 @@ export default function App() {
           Enter VR
         </button>
       </nav>
-      <Canvas shadows>
+      <Canvas
+        shadows
+        onCreated={({ gl }) => {
+          console.log("WebGL context created:", gl);
+        }}
+      >
         <Suspense fallback={null}>
           <XR store={store}>
             <Intersectable
