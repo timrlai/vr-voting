@@ -62,15 +62,6 @@ export default function App() {
             >
               <BallotBox />
             </Intersectable>
-            <Ballot
-              position={[-4, -0.5, 0]}
-              onDragged={(box) => {
-                if (!isGrabbed) setIsGrabbed(true);
-                setBox(box);
-              }}
-              onOpened={() => setIsOpened(true)}
-              onConfirmed={() => setIsConfirmed(true)}
-            />
 
             <Table position={[-6, -2, 1]} />
             <DeputyReturningOfficer position={[-5, 0, -3]} />
@@ -80,14 +71,28 @@ export default function App() {
 
             <Room />
 
-            <Locomotion />
+            {xrStore && (
+              <Suspense fallback={<SceneFallback store={xrStore} />}>
+                <Ballot
+                  position={[-4, -0.5, 0]}
+                  onDragged={(box) => {
+                    if (!isGrabbed) setIsGrabbed(true);
+                    setBox(box);
+                  }}
+                  onOpened={() => setIsOpened(true)}
+                  onConfirmed={() => setIsConfirmed(true)}
+                />
 
-            <Instructions
-              isGrabbed={isGrabbed}
-              isOpened={isOpened}
-              isConfirmed={isConfirmed}
-              isPlaced={isPlaced}
-            />
+                <Locomotion />
+
+                <Instructions
+                  isGrabbed={isGrabbed}
+                  isOpened={isOpened}
+                  isConfirmed={isConfirmed}
+                  isPlaced={isPlaced}
+                />
+              </Suspense>
+            )}
 
             <OrbitControls />
           </Suspense>
