@@ -1,18 +1,18 @@
-import { Box3 } from "three";
-import { Suspense, useState } from "react";
+// import { Box3 } from "three";
+import { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
-import { createXRStore, XR } from "@react-three/xr";
+import { createXRStore } from "@react-three/xr";
 import { OrbitControls } from "@react-three/drei";
 
-import Intersectable from "./Intersectable";
-import BallotBox from "./BallotBox";
-import Table from "./Table";
-import DeputyReturningOfficer from "./DeputyReturningOfficer";
-import Screen from "./Screen";
-import Ballot from "./Ballot";
+// import Intersectable from "./Intersectable";
+// import BallotBox from "./BallotBox";
+// import Table from "./Table";
+// import DeputyReturningOfficer from "./DeputyReturningOfficer";
+// import Screen from "./Screen";
+// import Ballot from "./Ballot";
 import Room from "./Room";
-import Locomotion from "./Locomotion";
-import Instructions from "./Instructions";
+// import Locomotion from "./Locomotion";
+// import Instructions from "./Instructions";
 
 const store = createXRStore({
   controller: { rayPointer: { rayModel: { color: "red" } } },
@@ -24,11 +24,11 @@ function Fallback() {
 }
 
 export default function App() {
-  const [box, setBox] = useState<Box3 | null>(null);
-  const [isGrabbed, setIsGrabbed] = useState(false);
-  const [isOpened, setIsOpened] = useState(false);
-  const [isConfirmed, setIsConfirmed] = useState(false);
-  const [isPlaced, setIsPlaced] = useState(false);
+  // const [box, setBox] = useState<Box3 | null>(null);
+  // const [isGrabbed, setIsGrabbed] = useState(false);
+  // const [isOpened, setIsOpened] = useState(false);
+  // const [isConfirmed, setIsConfirmed] = useState(false);
+  // const [isPlaced, setIsPlaced] = useState(false);
 
   return (
     <main>
