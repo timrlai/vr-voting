@@ -1,4 +1,4 @@
-import { Suspense, useMemo, type JSX } from "react";
+import { Suspense, type JSX } from "react";
 import { createXRStore, XR, type XRStore } from "@react-three/xr";
 
 type XRSceneProps = {
