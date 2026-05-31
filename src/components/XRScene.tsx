@@ -19,12 +19,7 @@ export default function XRScene({ children, setXrStore }: XRSceneProps) {
     controller: { rayPointer: { rayModel: { color: "red" } } },
   });
 
-  if (store) {
-    console.info("XR Store:", store);
-    setXrStore(store);
-  } else {
-    console.error("XR Store:", store);
-  }
+  if (store) setXrStore(store);
 
   return store ? (
     <Suspense fallback={<XRFallback store={store} />}>
