@@ -5,7 +5,6 @@ import {
   Vector2,
 } from "three";
 import { useTexture, Environment } from "@react-three/drei";
-import { useFrame } from "@react-three/fiber";
 
 export default function Room() {
   const ceilingTextureImg = "/textures/ceiling.webp";
