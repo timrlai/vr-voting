@@ -1,5 +1,5 @@
 import { Box3 } from "three";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { createXRStore, XR, type XRStore } from "@react-three/xr";
 import { OrbitControls } from "@react-three/drei";
@@ -26,10 +26,6 @@ function XRComponentsFallback({ store, session }: XRComponentsFallbackProps) {
   return null;
 }
 
-const store = createXRStore({
-  controller: { rayPointer: { rayModel: { color: "red" } } },
-});
-
 export default function App() {
   const [xrSession, setXrSession] = useState<XRSession | null>(null);
   const [box, setBox] = useState<Box3 | null>(null);
@@ -37,6 +33,14 @@ export default function App() {
   const [isOpened, setIsOpened] = useState(false);
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [isPlaced, setIsPlaced] = useState(false);
+
+  const store = useMemo(
+    () =>
+      createXRStore({
+        controller: { rayPointer: { rayModel: { color: "red" } } },
+      }),
+    [],
+  );
 
   const onEnterXr = () => {
     if (!store) return;
