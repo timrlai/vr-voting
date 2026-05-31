@@ -15,19 +15,33 @@ import Locomotion from "./Locomotion";
 import Instructions from "./Instructions";
 import XRScene from "./XRScene";
 
-function XRComponentsFallback({ store }: { store: XRStore | null }) {
+type XRComponentsFallbackProps = {
+  store: XRStore | null;
+  session: XRSession | null;
+};
+
+function XRComponentsFallback({ store, session }: XRComponentsFallbackProps) {
   console.error("XR components in scene not loaded");
   console.error("XR store:", store);
+  console.error("XR session:", session);
   return null;
 }
 
 export default function App() {
   const [xrStore, setXrStore] = useState<XRStore | null>(null);
+  const [xrSession, setXrSession] = useState<XRSession | null>(null);
   const [box, setBox] = useState<Box3 | null>(null);
   const [isGrabbed, setIsGrabbed] = useState(false);
   const [isOpened, setIsOpened] = useState(false);
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [isPlaced, setIsPlaced] = useState(false);
+
+  const onEnterXr = async () => {
+    if (!xrStore) return;
+    const session = await xrStore.enterVR();
+    if (!session) return;
+    setXrSession(session);
+  };
 
   return (
     <main>
@@ -36,10 +50,7 @@ export default function App() {
       </header>
       <nav id="xr-button-container">
         <button
-          onClick={() => {
-            if (!xrStore) return;
-            xrStore.enterVR();
-          }}
+          onClick={onEnterXr}
           className="special-gothic-condensed-one-regular"
         >
           Enter VR
@@ -73,8 +84,12 @@ export default function App() {
 
             <OrbitControls />
 
-            {xrStore && (
-              <Suspense fallback={<XRComponentsFallback store={xrStore} />}>
+            {xrStore && xrSession && (
+              <Suspense
+                fallback={
+                  <XRComponentsFallback store={xrStore} session={xrSession} />
+                }
+              >
                 <Ballot
                   position={[-4, -0.5, 0]}
                   onDragged={(box) => {
