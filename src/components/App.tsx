@@ -1,7 +1,7 @@
 import { Box3 } from "three";
 import { Suspense, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import { type XRStore } from "@react-three/xr";
+import { createXRStore, XR, type XRStore } from "@react-three/xr";
 import { OrbitControls } from "@react-three/drei";
 
 import Intersectable from "./Intersectable";
@@ -13,7 +13,6 @@ import Ballot from "./Ballot";
 import Room from "./Room";
 import Locomotion from "./Locomotion";
 import Instructions from "./Instructions";
-import XRScene from "./XRScene";
 
 type XRComponentsFallbackProps = {
   store: XRStore | null;
@@ -27,8 +26,11 @@ function XRComponentsFallback({ store, session }: XRComponentsFallbackProps) {
   return null;
 }
 
+const store = createXRStore({
+  controller: { rayPointer: { rayModel: { color: "red" } } },
+});
+
 export default function App() {
-  const [xrStore, setXrStore] = useState<XRStore | null>(null);
   const [xrSession, setXrSession] = useState<XRSession | null>(null);
   const [box, setBox] = useState<Box3 | null>(null);
   const [isGrabbed, setIsGrabbed] = useState(false);
@@ -37,8 +39,8 @@ export default function App() {
   const [isPlaced, setIsPlaced] = useState(false);
 
   const onEnterXr = () => {
-    if (!xrStore) return;
-    xrStore.enterVR().then((session) => {
+    if (!store) return;
+    store.enterVR().then((session) => {
       if (session) setXrSession(session);
     });
   };
@@ -79,13 +81,8 @@ export default function App() {
           Enter VR
         </button>
       </nav>
-      <Canvas
-        shadows
-        onCreated={({ gl }) => {
-          console.log("WebGL context created:", gl);
-        }}
-      >
-        <XRScene setXrStore={setXrStore}>
+      <Canvas shadows>
+        <XR store={store}>
           <Suspense fallback={null}>
             <Intersectable
               position={[0, 0.55, 0]}
@@ -109,7 +106,7 @@ export default function App() {
 
             <Suspense
               fallback={
-                <XRComponentsFallback store={xrStore} session={xrSession} />
+                <XRComponentsFallback store={store} session={xrSession} />
               }
             >
               <Ballot
@@ -134,7 +131,7 @@ export default function App() {
               />
             </Suspense>
           </Suspense>
-        </XRScene>
+        </XR>
       </Canvas>
       <footer>
         <p>
