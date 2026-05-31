@@ -1,5 +1,5 @@
 import { Box3 } from "three";
-import { Suspense, useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { createXRStore, XR, type XRStore } from "@react-three/xr";
 import { OrbitControls } from "@react-three/drei";
@@ -34,13 +34,9 @@ export default function App() {
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [isPlaced, setIsPlaced] = useState(false);
 
-  const store = useMemo(
-    () =>
-      createXRStore({
-        controller: { rayPointer: { rayModel: { color: "red" } } },
-      }),
-    [],
-  );
+  const store = createXRStore({
+    controller: { rayPointer: { rayModel: { color: "red" } } },
+  });
 
   const onEnterXr = () => {
     if (!store) return;
