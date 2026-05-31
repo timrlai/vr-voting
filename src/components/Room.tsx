@@ -50,10 +50,6 @@ export default function Room() {
     }),
   ];
 
-  useFrame(() => {
-    console.log("frame");
-  });
-
   return (
     <group position={[0, 6.2, -5]}>
       <mesh material={materials} castShadow receiveShadow>
