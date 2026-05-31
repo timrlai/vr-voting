@@ -1,5 +1,5 @@
 import { Box3 } from "three";
-import { Suspense, useCallback, useState } from "react";
+import { Suspense, useCallback, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { type XRStore } from "@react-three/xr";
 import { OrbitControls } from "@react-three/drei";
@@ -37,15 +37,34 @@ export default function App() {
   const [isPlaced, setIsPlaced] = useState(false);
 
   const onEnterXr = useCallback(() => {
-    console.log("navigator.xr:", navigator.xr);
-    navigator.xr?.isSessionSupported("immersive-vr").then((supported) => {
-      console.log("immersive-vr supported:", supported);
-    });
     if (!xrStore) return;
     xrStore.enterVR().then((session) => {
       if (session) setXrSession(session);
     });
   }, [xrStore]);
+
+  useEffect(() => {
+    // Make sure this is actually running
+    console.log("XR capability check running");
+
+    const nav: any = navigator;
+
+    if (!nav.xr) {
+      console.log("navigator.xr is NOT defined");
+      return;
+    }
+
+    console.log("navigator.xr is defined:", nav.xr);
+
+    nav.xr
+      .isSessionSupported("immersive-vr")
+      .then((supported: boolean) => {
+        console.log("immersive-vr supported:", supported);
+      })
+      .catch((err: any) => {
+        console.error("isSessionSupported error:", err);
+      });
+  }, []);
 
   return (
     <main>
