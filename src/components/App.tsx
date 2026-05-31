@@ -40,7 +40,7 @@ export default function App() {
     if (!xrStore) return;
     xrStore.enterVR().then((session) => {
       console.log("session:", session);
-      if (session) setXrSession(session);
+      if (!xrSession && session) setXrSession(session);
     });
   };
 
