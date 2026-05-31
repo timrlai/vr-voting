@@ -12,10 +12,11 @@ import {
 } from "three";
 import { type ThreeEvent, useFrame, useThree } from "@react-three/fiber";
 import { useGLTF, useAnimations } from "@react-three/drei";
-import { useXR, useXRInputSourceState } from "@react-three/xr";
+import { useXRInputSourceState } from "@react-three/xr";
 import { BookOpenCheck, ThumbsDown, ThumbsUp } from "@react-three/uikit-lucide";
 
 type BallotProps = {
+  session: XRSession | null;
   position?: [number, number, number];
   rotation?: [number, number, number];
   scale?: number;
@@ -29,6 +30,7 @@ type MaterialWithMap = Material & {
 };
 
 export default function Ballot({
+  session,
   position = [0, 0, 1],
   rotation = [0, 0, 0],
   scale = 1,
@@ -36,7 +38,6 @@ export default function Ballot({
   onOpened,
   onConfirmed,
 }: BallotProps) {
-  const { session } = useXR();
   const groupRef = useRef<Object3D>(null);
   const ballotRef = useRef<Object3D>(null);
   const { scene: ballotModel, animations } = useGLTF("/models/ballot.gltf");
@@ -271,7 +272,7 @@ export default function Ballot({
       mesh.geometry.computeBoundingBox();
       boundingBox.current = mesh.geometry.boundingBox.clone();
     }
-  }, []);
+  }, [session]);
 
   useFrame(() => {
     if (

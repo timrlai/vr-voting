@@ -1,10 +1,13 @@
 import { useRef } from "react";
 import { type Group } from "three";
 import { useFrame } from "@react-three/fiber";
-import { useXR, useXRInputSourceState, XROrigin } from "@react-three/xr";
+import { useXRInputSourceState, XROrigin } from "@react-three/xr";
 
-export default function Locomotion() {
-  const { session } = useXR();
+type LocomotionProps = {
+  session: XRSession | null;
+};
+
+export default function Locomotion({ session }: LocomotionProps) {
   const rightController = useXRInputSourceState("controller", "right");
   const leftController = useXRInputSourceState("controller", "left");
   const groupRef = useRef<Group>(null);

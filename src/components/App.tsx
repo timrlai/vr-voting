@@ -95,6 +95,7 @@ export default function App() {
                 }
               >
                 <Ballot
+                  session={xrSession}
                   position={[-4, -0.5, 0]}
                   onDragged={(box) => {
                     if (!isGrabbed) setIsGrabbed(true);
@@ -104,9 +105,10 @@ export default function App() {
                   onConfirmed={() => setIsConfirmed(true)}
                 />
 
-                <Locomotion />
+                <Locomotion session={xrSession} />
 
                 <Instructions
+                  session={xrSession}
                   isGrabbed={isGrabbed}
                   isOpened={isOpened}
                   isConfirmed={isConfirmed}
