@@ -28,7 +28,7 @@ export default function XRScene({
 
   return existingStore ? (
     <Suspense fallback={<XRFallback store={existingStore} />}>
-      <XR store={store}>{children}</XR>
+      <XR store={existingStore}>{children}</XR>
     </Suspense>
   ) : (
     children
