@@ -1,4 +1,4 @@
-import { Suspense, type JSX } from "react";
+import { Suspense, useMemo, type JSX } from "react";
 import { createXRStore, XR, type XRStore } from "@react-three/xr";
 
 type XRSceneProps = {
@@ -15,9 +15,13 @@ function XRFallback({ store }: XRFallbackProps) {
 }
 
 export default function XRScene({ children, setXrStore }: XRSceneProps) {
-  const store = createXRStore({
-    controller: { rayPointer: { rayModel: { color: "red" } } },
-  });
+  const store = useMemo(
+    () =>
+      createXRStore({
+        controller: { rayPointer: { rayModel: { color: "red" } } },
+      }),
+    [],
+  );
 
   if (store) setXrStore(store);
 
