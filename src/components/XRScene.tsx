@@ -3,6 +3,7 @@ import { createXRStore, XR, type XRStore } from "@react-three/xr";
 
 type XRSceneProps = {
   children: JSX.Element;
+  existingStore: XRStore | null;
   setXrStore: (store: XRStore) => void;
 };
 
@@ -14,15 +15,19 @@ function XRFallback({ store }: XRFallbackProps) {
   return null;
 }
 
-export default function XRScene({ children, setXrStore }: XRSceneProps) {
+export default function XRScene({
+  children,
+  existingStore,
+  setXrStore,
+}: XRSceneProps) {
   const store = createXRStore({
     controller: { rayPointer: { rayModel: { color: "red" } } },
   });
 
-  if (store) setXrStore(store);
+  if (!existingStore && store) setXrStore(store);
 
-  return store ? (
-    <Suspense fallback={<XRFallback store={store} />}>
+  return existingStore ? (
+    <Suspense fallback={<XRFallback store={existingStore} />}>
       <XR store={store}>{children}</XR>
     </Suspense>
   ) : (

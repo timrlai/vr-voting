@@ -86,7 +86,7 @@ export default function App() {
           console.log("WebGL context created:", gl);
         }}
       >
-        <XRScene setXrStore={setXrStore}>
+        <XRScene existingStore={xrStore} setXrStore={setXrStore}>
           <Suspense fallback={null}>
             <Intersectable
               position={[0, 0.55, 0]}
