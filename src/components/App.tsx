@@ -1,7 +1,7 @@
 import { Box3 } from "three";
 import { Suspense, useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import { createXRStore, XR } from "@react-three/xr";
+import { type XRStore } from "@react-three/xr";
 import { OrbitControls } from "@react-three/drei";
 
 import Intersectable from "./Intersectable";
@@ -13,17 +13,15 @@ import Ballot from "./Ballot";
 import Room from "./Room";
 import Locomotion from "./Locomotion";
 import Instructions from "./Instructions";
+import XRScene from "./XRScene";
 
-const store = createXRStore({
-  controller: { rayPointer: { rayModel: { color: "red" } } },
-});
-
-function Fallback() {
-  console.log("suspense fallbacka active");
+function SceneFallback() {
+  console.error("Scene not loaded");
   return null;
 }
 
 export default function App() {
+  const [xrStore, setXrStore] = useState<XRStore | null>(null);
   const [box, setBox] = useState<Box3 | null>(null);
   const [isGrabbed, setIsGrabbed] = useState(false);
   const [isOpened, setIsOpened] = useState(false);
@@ -37,7 +35,10 @@ export default function App() {
       </header>
       <nav id="xr-button-container">
         <button
-          onClick={() => store.enterVR()}
+          onClick={() => {
+            if (!xrStore) return;
+            xrStore.enterVR();
+          }}
           className="special-gothic-condensed-one-regular"
         >
           Enter VR
@@ -49,8 +50,8 @@ export default function App() {
           console.log("WebGL context created:", gl);
         }}
       >
-        <Suspense fallback={<Fallback />}>
-          <XR store={store}>
+        <XRScene setXrStore={setXrStore}>
+          <Suspense fallback={<SceneFallback />}>
             <Intersectable
               position={[0, 0.55, 0]}
               box={box}
@@ -88,8 +89,8 @@ export default function App() {
             />
 
             <OrbitControls />
-          </XR>
-        </Suspense>
+          </Suspense>
+        </XRScene>
       </Canvas>
       <footer>
         <p>
