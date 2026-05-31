@@ -15,8 +15,9 @@ import Locomotion from "./Locomotion";
 import Instructions from "./Instructions";
 import XRScene from "./XRScene";
 
-function SceneFallback() {
+function SceneFallback({ store }: { store: XRStore | null }) {
   console.error("Scene not loaded");
+  console.error("XR store:", store);
   return null;
 }
 
@@ -51,7 +52,7 @@ export default function App() {
         }}
       >
         <XRScene setXrStore={setXrStore}>
-          <Suspense fallback={<SceneFallback />}>
+          <Suspense fallback={<SceneFallback store={xrStore} />}>
             <Intersectable
               position={[0, 0.55, 0]}
               box={box}

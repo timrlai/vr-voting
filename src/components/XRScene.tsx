@@ -6,8 +6,9 @@ type XRSceneProps = {
   setXrStore: (store: XRStore) => void;
 };
 
-function XRFallback() {
+function XRFallback({ store }: { store: XRStore }) {
   console.error("XR scene not loaded");
+  console.error("XR Store:", store);
   return null;
 }
 
@@ -16,10 +17,15 @@ export default function XRScene({ children, setXrStore }: XRSceneProps) {
     controller: { rayPointer: { rayModel: { color: "red" } } },
   });
 
-  if (store) setXrStore(store);
+  if (store) {
+    console.info("XR Store:", store);
+    setXrStore(store);
+  } else {
+    console.error("XR Store:", store);
+  }
 
   return store ? (
-    <Suspense fallback={<XRFallback />}>
+    <Suspense fallback={<XRFallback store={store} />}>
       <XR store={store}>{children}</XR>
     </Suspense>
   ) : (
