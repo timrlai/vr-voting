@@ -16,6 +16,7 @@ import { useXRInputSourceState } from "@react-three/xr";
 import { BookOpenCheck, ThumbsDown, ThumbsUp } from "@react-three/uikit-lucide";
 
 type BallotProps = {
+  session: XRSession | null;
   position?: [number, number, number];
   rotation?: [number, number, number];
   scale?: number;
@@ -29,6 +30,7 @@ type MaterialWithMap = Material & {
 };
 
 export default function Ballot({
+  session,
   position = [0, 0, 1],
   rotation = [0, 0, 0],
   scale = 1,
@@ -36,8 +38,6 @@ export default function Ballot({
   onOpened,
   onConfirmed,
 }: BallotProps) {
-  const ballotFront = "/models/ballot_front.webp";
-  const ballotBack = "/models/ballot_back.webp";
   const groupRef = useRef<Object3D>(null);
   const ballotRef = useRef<Object3D>(null);
   const { scene: ballotModel, animations } = useGLTF("/models/ballot.gltf");
@@ -55,6 +55,8 @@ export default function Ballot({
   const [isConfirmed, setIsConfirmed] = useState(false);
   const ballotWidth = 2400;
   const ballotHeight = 1108;
+  const ballotFront = "/models/ballot_front.webp";
+  const ballotBack = "/models/ballot_back.webp";
 
   useEffect(() => {
     if (frontCanvas.current) return;
@@ -149,14 +151,14 @@ export default function Ballot({
   };
 
   const grabBallot = () => {
-    if (groupRef.current && rightController?.object) {
+    if (session && groupRef.current && rightController?.object) {
       rightController.object.attach(groupRef.current);
       setIsGrabbed(true);
     }
   };
 
   const releaseBallot = () => {
-    if (isGrabbed && groupRef.current) {
+    if (session && isGrabbed && groupRef.current) {
       scene.attach(groupRef.current);
       setIsGrabbed(false);
     }
@@ -262,7 +264,7 @@ export default function Ballot({
   }, [names, actions]);
 
   useLayoutEffect(() => {
-    if (!ballotRef.current) return;
+    if (!session || !ballotRef.current) return;
 
     const mesh = ballotRef.current.getObjectByProperty("isMesh", true) as Mesh;
 
@@ -270,10 +272,16 @@ export default function Ballot({
       mesh.geometry.computeBoundingBox();
       boundingBox.current = mesh.geometry.boundingBox.clone();
     }
-  }, []);
+  }, [session]);
 
   useFrame(() => {
-    if (isGrabbed && groupRef.current && boundingBox.current && onDragged) {
+    if (
+      session &&
+      isGrabbed &&
+      groupRef.current &&
+      boundingBox.current &&
+      onDragged
+    ) {
       const box = boundingBox.current.clone();
       box.applyMatrix4(groupRef.current.matrixWorld);
       onDragged(box);

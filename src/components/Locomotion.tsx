@@ -3,14 +3,18 @@ import { type Group } from "three";
 import { useFrame } from "@react-three/fiber";
 import { useXRInputSourceState, XROrigin } from "@react-three/xr";
 
-export default function Locomotion() {
+type LocomotionProps = {
+  session: XRSession | null;
+};
+
+export default function Locomotion({ session }: LocomotionProps) {
   const rightController = useXRInputSourceState("controller", "right");
   const leftController = useXRInputSourceState("controller", "left");
   const groupRef = useRef<Group>(null);
   const originRef = useRef<Group>(null);
 
   useFrame((_, delta) => {
-    if (rightController != null && groupRef.current != null) {
+    if (session && rightController != null && groupRef.current != null) {
       const rightStickState = rightController.gamepad["xr-standard-thumbstick"];
 
       if (rightStickState != null) {
@@ -29,8 +33,10 @@ export default function Locomotion() {
   });
 
   return (
-    <group ref={groupRef} position={[0, 0, 5]}>
-      <XROrigin ref={originRef} />
-    </group>
+    session && (
+      <group ref={groupRef} position={[0, 0, 5]}>
+        <XROrigin ref={originRef} />
+      </group>
+    )
   );
 }
