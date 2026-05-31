@@ -19,9 +19,7 @@ export default function XRScene({ children, setXrStore }: XRSceneProps) {
     controller: { rayPointer: { rayModel: { color: "red" } } },
   });
 
-  useEffect(() => {
-    if (store) setXrStore(store);
-  }, [store, setXrStore]);
+  if (store) setXrStore(store);
 
   return store ? (
     <Suspense fallback={<XRFallback store={store} />}>
