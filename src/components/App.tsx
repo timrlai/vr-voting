@@ -39,8 +39,8 @@ export default function App() {
         </button>
       </nav>
       <Canvas shadows>
-        <XR store={store}>
-          <Suspense fallback={null}>
+        <Suspense fallback={null}>
+          <XR store={store}>
             <Intersectable
               position={[0, 0.55, 0]}
               box={box}
@@ -78,8 +78,8 @@ export default function App() {
             />
 
             <OrbitControls />
-          </Suspense>
-        </XR>
+          </XR>
+        </Suspense>
       </Canvas>
       <footer>
         <p>
