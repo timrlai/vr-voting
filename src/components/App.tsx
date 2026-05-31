@@ -106,6 +106,13 @@ export default function App() {
 
             <Room />
 
+            <Instructions
+              isGrabbed={isGrabbed}
+              isOpened={isOpened}
+              isConfirmed={isConfirmed}
+              isPlaced={isPlaced}
+            />
+
             <OrbitControls />
 
             <Suspense
@@ -114,7 +121,6 @@ export default function App() {
               }
             >
               <Ballot
-                session={xrSession}
                 position={[-4, -0.5, 0]}
                 onDragged={(box) => {
                   if (!isGrabbed) setIsGrabbed(true);
@@ -124,15 +130,7 @@ export default function App() {
                 onConfirmed={() => setIsConfirmed(true)}
               />
 
-              <Locomotion session={xrSession} />
-
-              <Instructions
-                session={xrSession}
-                isGrabbed={isGrabbed}
-                isOpened={isOpened}
-                isConfirmed={isConfirmed}
-                isPlaced={isPlaced}
-              />
+              <Locomotion />
             </Suspense>
           </Suspense>
         </XR>
