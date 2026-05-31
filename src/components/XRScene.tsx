@@ -6,7 +6,9 @@ type XRSceneProps = {
   setXrStore: (store: XRStore) => void;
 };
 
-function XRFallback({ store }: { store: XRStore }) {
+type XRFallbackProps = { store: XRStore };
+
+function XRFallback({ store }: XRFallbackProps) {
   console.error("XR scene not loaded");
   console.error("XR Store:", store);
   return null;
