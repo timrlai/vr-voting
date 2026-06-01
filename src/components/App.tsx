@@ -75,12 +75,7 @@ export default function App() {
           Enter VR
         </button>
       </nav>
-      <Canvas
-        shadows
-        onCreated={({ gl }) => {
-          console.log("WebGL context created:", gl);
-        }}
-      >
+      <Canvas shadows>
         <XRScene existingStore={xrStore} setXrStore={setXrStore}>
           <>
             <Suspense
