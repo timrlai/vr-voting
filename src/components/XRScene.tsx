@@ -1,4 +1,4 @@
-import { Suspense, useEffect, type JSX } from "react";
+import { Suspense, useEffect, useState, type JSX } from "react";
 import { createXRStore, XR, type XRStore } from "@react-three/xr";
 
 type XRSceneProps = {
@@ -20,9 +20,11 @@ export default function XRScene({
   existingStore,
   setXrStore,
 }: XRSceneProps) {
-  const store = createXRStore({
-    controller: { rayPointer: { rayModel: { color: "red" } } },
-  });
+  const [store] = useState(
+    createXRStore({
+      controller: { rayPointer: { rayModel: { color: "red" } } },
+    }),
+  );
 
   useEffect(() => {
     if (!existingStore && store) setXrStore(store);
