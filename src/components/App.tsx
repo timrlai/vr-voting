@@ -104,12 +104,14 @@ export default function App() {
           console.log("WebGL context created:", gl);
         }}
       >
-        <Suspense fallback={<ComponentFallback componentName="PreloadFont" />}>
-          <PreloadFont setFontFamilies={setFontFamilies} />
-        </Suspense>
-
         <XRScene existingStore={xrStore} setXrStore={setXrStore}>
           <>
+            <Suspense
+              fallback={<ComponentFallback componentName="PreloadFont" />}
+            >
+              <PreloadFont setFontFamilies={setFontFamilies} />
+            </Suspense>
+
             <Intersectable
               position={[0, 0.55, 0]}
               box={box}
