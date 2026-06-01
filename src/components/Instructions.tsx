@@ -18,13 +18,14 @@ export default function Instructions({
 }: InstructionsProps) {
   const specialGothicCondensed = "/fonts/SpecialGothicCondensedOne-Regular.ttf";
   const fontFamilies = useTTF(specialGothicCondensed);
+  console.log(fontFamilies);
   return (
     session && (
       <Hud>
         <PerspectiveCamera makeDefault position={[0, 0, 10]}>
           <group position={[0.5, 0.5, -2]}>
             <Container
-              fontFamilies={fontFamilies}
+              fontFamilies={fontFamilies ?? "bold"}
               backgroundColor="white"
               borderRadius={5}
               paddingX={10}
