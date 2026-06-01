@@ -9,7 +9,8 @@ type InstructionsProps = {
   isPlaced: boolean;
 };
 
-const specialGothicCondensed = "/fonts/SpecialGothicCondensedOne-Regular.ttf";
+const specialGothicCondensed =
+  "/fonts/SpecialGothicCondensedOne-Regular-subset.ttf";
 
 export default function Instructions({
   session,
