@@ -148,15 +148,13 @@ export default function App() {
                 <Locomotion session={xrSession} />
               </Suspense>
             )}
-            {xrStore && xrSession && (
-              <Instructions
-                session={xrSession}
-                isGrabbed={isGrabbed}
-                isOpened={isOpened}
-                isConfirmed={isConfirmed}
-                isPlaced={isPlaced}
-              />
-            )}
+            <Instructions
+              session={xrSession}
+              isGrabbed={isGrabbed}
+              isOpened={isOpened}
+              isConfirmed={isConfirmed}
+              isPlaced={isPlaced}
+            />
           </>
         </XRScene>
       </Canvas>
