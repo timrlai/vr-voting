@@ -3,7 +3,10 @@ import { Suspense, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { type XRStore } from "@react-three/xr";
 import { OrbitControls } from "@react-three/drei";
+import { type FontFamilies } from "@react-three/uikit";
 
+import XRScene from "./XRScene";
+import PreloadFont from "./PreloadFont";
 import Intersectable from "./Intersectable";
 import BallotBox from "./BallotBox";
 import Table from "./Table";
@@ -13,7 +16,6 @@ import Ballot from "./Ballot";
 import Room from "./Room";
 import Locomotion from "./Locomotion";
 import Instructions from "./Instructions";
-import XRScene from "./XRScene";
 
 type XRComponentsFallbackProps = {
   componentName: string;
@@ -40,6 +42,9 @@ export default function App() {
   const [isOpened, setIsOpened] = useState(false);
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [isPlaced, setIsPlaced] = useState(false);
+  const [fontFamilies, setFontFamilies] = useState<FontFamilies | undefined>(
+    undefined,
+  );
 
   const onEnterXr = () => {
     if (!xrStore) return;
@@ -85,6 +90,7 @@ export default function App() {
           Enter VR
         </button>
       </nav>
+      <PreloadFont setFontFamilies={setFontFamilies} />
       <Canvas
         shadows
         onCreated={({ gl }) => {
@@ -148,13 +154,16 @@ export default function App() {
                 <Locomotion session={xrSession} />
               </Suspense>
             )}
-            <Instructions
-              session={xrSession}
-              isGrabbed={isGrabbed}
-              isOpened={isOpened}
-              isConfirmed={isConfirmed}
-              isPlaced={isPlaced}
-            />
+            {fontFamilies && (
+              <Instructions
+                fontFamilies={fontFamilies}
+                session={xrSession}
+                isGrabbed={isGrabbed}
+                isOpened={isOpened}
+                isConfirmed={isConfirmed}
+                isPlaced={isPlaced}
+              />
+            )}
           </>
         </XRScene>
       </Canvas>
