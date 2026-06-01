@@ -1,5 +1,5 @@
 import { Box3 } from "three";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { type XRStore } from "@react-three/xr";
 import { OrbitControls } from "@react-three/drei";
@@ -14,6 +14,18 @@ import Room from "./Room";
 import Locomotion from "./Locomotion";
 import Instructions from "./Instructions";
 import XRScene from "./XRScene";
+
+type XRComponentsFallbackProps = {
+  store: XRStore | null;
+  session: XRSession | null;
+};
+
+function XRComponentsFallback({ store, session }: XRComponentsFallbackProps) {
+  console.error("XR components in scene not loaded");
+  console.error("XR store:", store);
+  console.error("XR session:", session);
+  return null;
+}
 
 export default function App() {
   const [xrStore, setXrStore] = useState<XRStore | null>(null);
@@ -75,7 +87,7 @@ export default function App() {
         }}
       >
         <XRScene existingStore={xrStore} setXrStore={setXrStore}>
-          <>
+          <Suspense fallback={null}>
             <Intersectable
               position={[0, 0.55, 0]}
               box={box}
@@ -97,7 +109,11 @@ export default function App() {
             <OrbitControls />
 
             {xrStore && xrSession && (
-              <>
+              <Suspense
+                fallback={
+                  <XRComponentsFallback store={xrStore} session={xrSession} />
+                }
+              >
                 <Ballot
                   session={xrSession}
                   position={[-4, -0.5, 0]}
@@ -118,9 +134,9 @@ export default function App() {
                   isConfirmed={isConfirmed}
                   isPlaced={isPlaced}
                 />
-              </>
+              </Suspense>
             )}
-          </>
+          </Suspense>
         </XRScene>
       </Canvas>
       <footer>
