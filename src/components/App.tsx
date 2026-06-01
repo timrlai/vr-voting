@@ -149,23 +149,13 @@ export default function App() {
               </Suspense>
             )}
             {xrStore && xrSession && (
-              <Suspense
-                fallback={
-                  <XRComponentsFallback
-                    componentName="Instructions"
-                    store={xrStore}
-                    session={xrSession}
-                  />
-                }
-              >
-                <Instructions
-                  session={xrSession}
-                  isGrabbed={isGrabbed}
-                  isOpened={isOpened}
-                  isConfirmed={isConfirmed}
-                  isPlaced={isPlaced}
-                />
-              </Suspense>
+              <Instructions
+                session={xrSession}
+                isGrabbed={isGrabbed}
+                isOpened={isOpened}
+                isConfirmed={isConfirmed}
+                isPlaced={isPlaced}
+              />
             )}
           </Suspense>
         </XRScene>
