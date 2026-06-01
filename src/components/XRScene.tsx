@@ -15,20 +15,18 @@ function XRFallback({ store }: XRFallbackProps) {
   return null;
 }
 
+const store = createXRStore({
+  controller: { rayPointer: { rayModel: { color: "red" } } },
+});
+
 export default function XRScene({
   children,
   existingStore,
   setXrStore,
 }: XRSceneProps) {
-  const [store] = useState(
-    createXRStore({
-      controller: { rayPointer: { rayModel: { color: "red" } } },
-    }),
-  );
-
   useEffect(() => {
     if (!existingStore && store) setXrStore(store);
-  }, [existingStore, store, setXrStore]);
+  }, [existingStore, setXrStore]);
 
   return (
     <Suspense fallback={<XRFallback store={existingStore ?? store} />}>
