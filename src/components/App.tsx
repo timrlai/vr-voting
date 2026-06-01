@@ -47,7 +47,7 @@ export default function App() {
   const fontFamilies = useTTF(specialGothicCondensed);
 
   const onEnterXr = () => {
-    if (!xrStore || !fontFamilies) return;
+    if (!xrStore) return;
     xrStore.enterVR().then((session) => {
       console.log("session:", session);
       if (!xrSession && session) setXrSession(session);
@@ -96,75 +96,73 @@ export default function App() {
           console.log("WebGL context created:", gl);
         }}
       >
-        {fontFamilies && (
-          <XRScene existingStore={xrStore} setXrStore={setXrStore}>
-            <>
-              <Intersectable
-                position={[0, 0.55, 0]}
-                box={box}
-                onIntersect={() => {
-                  if (isConfirmed) setIsPlaced(true);
-                }}
-              >
-                <BallotBox />
-              </Intersectable>
+        <XRScene existingStore={xrStore} setXrStore={setXrStore}>
+          <>
+            <Intersectable
+              position={[0, 0.55, 0]}
+              box={box}
+              onIntersect={() => {
+                if (isConfirmed) setIsPlaced(true);
+              }}
+            >
+              <BallotBox />
+            </Intersectable>
 
-              <Table position={[-6, -2, 1]} />
-              <DeputyReturningOfficer position={[-5, 0, -3]} />
+            <Table position={[-6, -2, 1]} />
+            <DeputyReturningOfficer position={[-5, 0, -3]} />
 
-              <Screen position={[7.5, -0.4, -10]} />
-              <Table position={[6, -2, -10]} />
+            <Screen position={[7.5, -0.4, -10]} />
+            <Table position={[6, -2, -10]} />
 
-              <Room />
+            <Room />
 
-              <OrbitControls />
+            <OrbitControls />
 
-              {xrStore && xrSession && (
-                <Suspense
-                  fallback={
-                    <XRComponentsFallback
-                      componentName="Ballot"
-                      store={xrStore}
-                      session={xrSession}
-                    />
-                  }
-                >
-                  <Ballot
+            {xrStore && xrSession && (
+              <Suspense
+                fallback={
+                  <XRComponentsFallback
+                    componentName="Ballot"
+                    store={xrStore}
                     session={xrSession}
-                    position={[-4, -0.5, 0]}
-                    onDragged={(box) => {
-                      if (!isGrabbed) setIsGrabbed(true);
-                      setBox(box);
-                    }}
-                    onOpened={() => setIsOpened(true)}
-                    onConfirmed={() => setIsConfirmed(true)}
                   />
-                </Suspense>
-              )}
-              {xrStore && xrSession && (
-                <Suspense
-                  fallback={
-                    <XRComponentsFallback
-                      componentName="Locomotion"
-                      store={xrStore}
-                      session={xrSession}
-                    />
-                  }
-                >
-                  <Locomotion session={xrSession} />
-                </Suspense>
-              )}
-              <Instructions
-                fontFamilies={fontFamilies}
-                session={xrSession}
-                isGrabbed={isGrabbed}
-                isOpened={isOpened}
-                isConfirmed={isConfirmed}
-                isPlaced={isPlaced}
-              />
-            </>
-          </XRScene>
-        )}
+                }
+              >
+                <Ballot
+                  session={xrSession}
+                  position={[-4, -0.5, 0]}
+                  onDragged={(box) => {
+                    if (!isGrabbed) setIsGrabbed(true);
+                    setBox(box);
+                  }}
+                  onOpened={() => setIsOpened(true)}
+                  onConfirmed={() => setIsConfirmed(true)}
+                />
+              </Suspense>
+            )}
+            {xrStore && xrSession && (
+              <Suspense
+                fallback={
+                  <XRComponentsFallback
+                    componentName="Locomotion"
+                    store={xrStore}
+                    session={xrSession}
+                  />
+                }
+              >
+                <Locomotion session={xrSession} />
+              </Suspense>
+            )}
+            <Instructions
+              fontFamilies={fontFamilies}
+              session={xrSession}
+              isGrabbed={isGrabbed}
+              isOpened={isOpened}
+              isConfirmed={isConfirmed}
+              isPlaced={isPlaced}
+            />
+          </>
+        </XRScene>
       </Canvas>
       <footer>
         <p>
