@@ -3,6 +3,7 @@ import { Suspense, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { type XRStore } from "@react-three/xr";
 import { OrbitControls } from "@react-three/drei";
+import { useTTF } from "@react-three/uikit";
 
 import Intersectable from "./Intersectable";
 import BallotBox from "./BallotBox";
@@ -32,6 +33,9 @@ function XRComponentsFallback({
   return null;
 }
 
+const specialGothicCondensed =
+  "/fonts/SpecialGothicCondensedOne-Regular-subset.ttf";
+
 export default function App() {
   const [xrStore, setXrStore] = useState<XRStore | null>(null);
   const [xrSession, setXrSession] = useState<XRSession | null>(null);
@@ -40,6 +44,7 @@ export default function App() {
   const [isOpened, setIsOpened] = useState(false);
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [isPlaced, setIsPlaced] = useState(false);
+  const fontFamilies = useTTF(specialGothicCondensed);
 
   const onEnterXr = () => {
     if (!xrStore) return;
@@ -149,6 +154,7 @@ export default function App() {
               </Suspense>
             )}
             <Instructions
+              fontFamilies={fontFamilies}
               session={xrSession}
               isGrabbed={isGrabbed}
               isOpened={isOpened}

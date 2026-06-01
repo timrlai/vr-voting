@@ -1,7 +1,8 @@
 import { Hud, PerspectiveCamera } from "@react-three/drei";
-import { useTTF, Container, Text } from "@react-three/uikit";
+import { Container, Text } from "@react-three/uikit";
 
 type InstructionsProps = {
+  fontFamilies: any;
   session: XRSession | null;
   isGrabbed: boolean;
   isOpened: boolean;
@@ -9,17 +10,14 @@ type InstructionsProps = {
   isPlaced: boolean;
 };
 
-const specialGothicCondensed =
-  "/fonts/SpecialGothicCondensedOne-Regular-subset.ttf";
-
 export default function Instructions({
+  fontFamilies,
   session,
   isGrabbed,
   isOpened,
   isConfirmed,
   isPlaced,
 }: InstructionsProps) {
-  const fontFamilies = useTTF(specialGothicCondensed);
   console.info("Font Family:", fontFamilies);
   return (
     session && (
