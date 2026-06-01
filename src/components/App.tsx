@@ -132,7 +132,7 @@ export default function App() {
 
             <OrbitControls />
 
-            {xrStore && xrSession && (
+            {xrStore && (
               <Suspense
                 fallback={
                   <XRComponentFallback
@@ -154,6 +154,7 @@ export default function App() {
                 />
               </Suspense>
             )}
+
             {xrStore && xrSession && (
               <Suspense
                 fallback={
@@ -167,16 +168,18 @@ export default function App() {
                 <Locomotion session={xrSession} />
               </Suspense>
             )}
-            {fontFamilies && (
+
+            <Suspense
+              fallback={<ComponentFallback componentName="Instructions" />}
+            >
               <Instructions
                 fontFamilies={fontFamilies}
-                session={xrSession}
                 isGrabbed={isGrabbed}
                 isOpened={isOpened}
                 isConfirmed={isConfirmed}
                 isPlaced={isPlaced}
               />
-            )}
+            </Suspense>
           </>
         </XRScene>
       </Canvas>

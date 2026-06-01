@@ -3,7 +3,6 @@ import { Container, Text } from "@react-three/uikit";
 
 type InstructionsProps = {
   fontFamilies: any;
-  session: XRSession | null;
   isGrabbed: boolean;
   isOpened: boolean;
   isConfirmed: boolean;
