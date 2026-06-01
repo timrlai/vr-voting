@@ -86,7 +86,7 @@ export default function App() {
           console.log("WebGL context created:", gl);
         }}
       >
-        <XRScene existingStore={xrStore} setXrStore={setXrStore}>
+        {!xrSession && (
           <Suspense fallback={null}>
             <Intersectable
               position={[0, 0.55, 0]}
@@ -107,8 +107,31 @@ export default function App() {
             <Room />
 
             <OrbitControls />
+          </Suspense>
+        )}
+        {xrStore && xrSession && (
+          <XRScene existingStore={xrStore} setXrStore={setXrStore}>
+            <Suspense fallback={null}>
+              <Intersectable
+                position={[0, 0.55, 0]}
+                box={box}
+                onIntersect={() => {
+                  if (isConfirmed) setIsPlaced(true);
+                }}
+              >
+                <BallotBox />
+              </Intersectable>
 
-            {xrStore && (
+              <Table position={[-6, -2, 1]} />
+              <DeputyReturningOfficer position={[-5, 0, -3]} />
+
+              <Screen position={[7.5, -0.4, -10]} />
+              <Table position={[6, -2, -10]} />
+
+              <Room />
+
+              <OrbitControls />
+
               <Suspense
                 fallback={
                   <XRComponentsFallback store={xrStore} session={xrSession} />
@@ -135,9 +158,9 @@ export default function App() {
                   isPlaced={isPlaced}
                 />
               </Suspense>
-            )}
-          </Suspense>
-        </XRScene>
+            </Suspense>
+          </XRScene>
+        )}
       </Canvas>
       <footer>
         <p>
