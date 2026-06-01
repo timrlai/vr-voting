@@ -9,6 +9,8 @@ type InstructionsProps = {
   isPlaced: boolean;
 };
 
+const specialGothicCondensed = "/fonts/SpecialGothicCondensedOne-Regular.ttf";
+
 export default function Instructions({
   session,
   isGrabbed,
@@ -16,9 +18,8 @@ export default function Instructions({
   isConfirmed,
   isPlaced,
 }: InstructionsProps) {
-  const specialGothicCondensed = "/fonts/SpecialGothicCondensedOne-Regular.ttf";
   const fontFamilies = useTTF(specialGothicCondensed);
-  console.log(fontFamilies);
+  console.info("Font Family:", fontFamilies);
   return (
     session && (
       <Hud>
