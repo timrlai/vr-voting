@@ -1,5 +1,5 @@
 import { Hud, PerspectiveCamera } from "@react-three/drei";
-import { Container, Text } from "@react-three/uikit";
+import { useTTF, Container, Text } from "@react-three/uikit";
 
 type InstructionsProps = {
   session: XRSession | null;
