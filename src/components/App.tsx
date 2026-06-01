@@ -16,12 +16,17 @@ import Instructions from "./Instructions";
 import XRScene from "./XRScene";
 
 type XRComponentsFallbackProps = {
+  componentName: string;
   store: XRStore | null;
   session: XRSession | null;
 };
 
-function XRComponentsFallback({ store, session }: XRComponentsFallbackProps) {
-  console.error("XR components in scene not loaded");
+function XRComponentsFallback({
+  componentName,
+  store,
+  session,
+}: XRComponentsFallbackProps) {
+  console.error(`${componentName} not loaded`);
   console.error("XR store:", store);
   console.error("XR session:", session);
   return null;
@@ -111,7 +116,11 @@ export default function App() {
             {xrStore && xrSession && (
               <Suspense
                 fallback={
-                  <XRComponentsFallback store={xrStore} session={xrSession} />
+                  <XRComponentsFallback
+                    componentName="Ballot"
+                    store={xrStore}
+                    session={xrSession}
+                  />
                 }
               >
                 <Ballot
@@ -124,9 +133,31 @@ export default function App() {
                   onOpened={() => setIsOpened(true)}
                   onConfirmed={() => setIsConfirmed(true)}
                 />
-
+              </Suspense>
+            )}
+            {xrStore && xrSession && (
+              <Suspense
+                fallback={
+                  <XRComponentsFallback
+                    componentName="Locomotion"
+                    store={xrStore}
+                    session={xrSession}
+                  />
+                }
+              >
                 <Locomotion session={xrSession} />
-
+              </Suspense>
+            )}
+            {xrStore && xrSession && (
+              <Suspense
+                fallback={
+                  <XRComponentsFallback
+                    componentName="Instructions"
+                    store={xrStore}
+                    session={xrSession}
+                  />
+                }
+              >
                 <Instructions
                   session={xrSession}
                   isGrabbed={isGrabbed}
