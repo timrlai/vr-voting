@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Hud, PerspectiveCamera } from "@react-three/drei";
 import { Container, Text } from "@react-three/uikit";
 
@@ -20,6 +21,22 @@ export default function Instructions({
 }: InstructionsProps) {
   // const fontFamilies = useTTF(specialGothicCondensed);
   // console.info("Font Family:", fontFamilies);
+
+  useEffect(() => {
+    fetch("/fonts/SpecialGothicCondensedOne-Regular.ttf")
+      .then((r) => {
+        console.log("status:", r.status);
+        console.log("type:", r.headers.get("content-type"));
+        console.log("encoding:", r.headers.get("content-encoding"));
+        console.log("length:", r.headers.get("content-length"));
+        return r.arrayBuffer();
+      })
+      .then((buf) => {
+        console.log("byteLength:", buf.byteLength);
+      })
+      .catch((err) => console.error("font fetch error:", err));
+  }, []);
+
   return (
     session && (
       <Hud>
