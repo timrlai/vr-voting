@@ -17,17 +17,25 @@ import Room from "./Room";
 import Locomotion from "./Locomotion";
 import Instructions from "./Instructions";
 
-type XRComponentsFallbackProps = {
+type ComponentFallbackProps = {
   componentName: string;
+};
+
+type XRComponentFallbackProps = ComponentFallbackProps & {
   store: XRStore | null;
   session: XRSession | null;
 };
 
-function XRComponentsFallback({
+function ComponentFallback({ componentName }: ComponentFallbackProps) {
+  console.error(`${componentName} not loaded`);
+  return null;
+}
+
+function XRComponentFallback({
   componentName,
   store,
   session,
-}: XRComponentsFallbackProps) {
+}: XRComponentFallbackProps) {
   console.error(`${componentName} not loaded`);
   console.error("XR store:", store);
   console.error("XR session:", session);
@@ -96,7 +104,9 @@ export default function App() {
           console.log("WebGL context created:", gl);
         }}
       >
-        <PreloadFont setFontFamilies={setFontFamilies} />
+        <Suspense fallback={<ComponentFallback componentName="PreloadFont" />}>
+          <PreloadFont setFontFamilies={setFontFamilies} />
+        </Suspense>
 
         <XRScene existingStore={xrStore} setXrStore={setXrStore}>
           <>
@@ -123,7 +133,7 @@ export default function App() {
             {xrStore && xrSession && (
               <Suspense
                 fallback={
-                  <XRComponentsFallback
+                  <XRComponentFallback
                     componentName="Ballot"
                     store={xrStore}
                     session={xrSession}
@@ -145,7 +155,7 @@ export default function App() {
             {xrStore && xrSession && (
               <Suspense
                 fallback={
-                  <XRComponentsFallback
+                  <XRComponentFallback
                     componentName="Locomotion"
                     store={xrStore}
                     session={xrSession}
