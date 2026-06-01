@@ -90,13 +90,14 @@ export default function App() {
           Enter VR
         </button>
       </nav>
-      <PreloadFont setFontFamilies={setFontFamilies} />
       <Canvas
         shadows
         onCreated={({ gl }) => {
           console.log("WebGL context created:", gl);
         }}
       >
+        <PreloadFont setFontFamilies={setFontFamilies} />
+
         <XRScene existingStore={xrStore} setXrStore={setXrStore}>
           <>
             <Intersectable
