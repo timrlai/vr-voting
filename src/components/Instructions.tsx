@@ -9,7 +9,7 @@ type InstructionsProps = {
   isPlaced: boolean;
 };
 
-const specialGothicCondensed = "/fonts/SpecialGothicCondensedOne-Regular.ttf";
+// const specialGothicCondensed = "/fonts/SpecialGothicCondensedOne-Regular.ttf";
 
 export default function Instructions({
   session,
@@ -18,15 +18,14 @@ export default function Instructions({
   isConfirmed,
   isPlaced,
 }: InstructionsProps) {
-  const fontFamilies = useTTF(specialGothicCondensed);
-  console.info("Font Family:", fontFamilies);
+  // const fontFamilies = useTTF(specialGothicCondensed);
+  // console.info("Font Family:", fontFamilies);
   return (
     session && (
       <Hud>
         <PerspectiveCamera makeDefault position={[0, 0, 10]}>
           <group position={[0.5, 0.5, -2]}>
             <Container
-              fontFamilies={fontFamilies ?? "bold"}
               backgroundColor="white"
               borderRadius={5}
               paddingX={10}
