@@ -1,4 +1,4 @@
-import { useEffect, useState, type JSX } from "react";
+import { Suspense, useEffect, useState, type JSX } from "react";
 import { createXRStore, XR, type XRStore } from "@react-three/xr";
 
 type XRSceneProps = {
@@ -6,6 +6,14 @@ type XRSceneProps = {
   existingStore: XRStore | null;
   setXrStore: (store: XRStore) => void;
 };
+
+type XRFallbackProps = { store: XRStore };
+
+function XRFallback({ store }: XRFallbackProps) {
+  console.error("XR scene not loaded");
+  console.error("XR Store:", store);
+  return null;
+}
 
 export default function XRScene({
   children,
@@ -22,5 +30,9 @@ export default function XRScene({
     if (!existingStore && store) setXrStore(store);
   }, [existingStore, store, setXrStore]);
 
-  return <XR store={existingStore ?? store}>{children}</XR>;
+  return (
+    <Suspense fallback={<XRFallback store={existingStore ?? store} />}>
+      <XR store={existingStore ?? store}>{children}</XR>
+    </Suspense>
+  );
 }
