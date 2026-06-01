@@ -1,4 +1,4 @@
-import { Suspense, type JSX } from "react";
+import { Suspense, useEffect, type JSX } from "react";
 import { createXRStore, XR, type XRStore } from "@react-three/xr";
 
 type XRSceneProps = {
@@ -24,7 +24,9 @@ export default function XRScene({
     controller: { rayPointer: { rayModel: { color: "red" } } },
   });
 
-  if (!existingStore && store) setXrStore(store);
+  useEffect(() => {
+    if (!existingStore && store) setXrStore(store);
+  }, [existingStore, store, setXrStore]);
 
   return existingStore ? (
     <Suspense fallback={<XRFallback store={existingStore} />}>
