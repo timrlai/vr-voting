@@ -28,11 +28,9 @@ export default function XRScene({
     if (!existingStore && store) setXrStore(store);
   }, [existingStore, store, setXrStore]);
 
-  return existingStore ? (
-    <Suspense fallback={<XRFallback store={existingStore} />}>
-      <XR store={existingStore}>{children}</XR>
+  return (
+    <Suspense fallback={<XRFallback store={existingStore ?? store} />}>
+      <XR store={existingStore ?? store}>{children}</XR>
     </Suspense>
-  ) : (
-    children
   );
 }
