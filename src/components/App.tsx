@@ -108,7 +108,7 @@ export default function App() {
 
             <OrbitControls />
 
-            {xrStore && (
+            {xrStore && xrSession && (
               <Suspense
                 fallback={
                   <XRComponentsFallback store={xrStore} session={xrSession} />
