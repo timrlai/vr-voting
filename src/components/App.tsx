@@ -5,6 +5,7 @@ import { type XRStore } from "@react-three/xr";
 import { OrbitControls } from "@react-three/drei";
 import { type FontFamilies } from "@react-three/uikit";
 
+import XRButton from "./XRButton";
 import XRScene from "./XRScene";
 import PreloadFont from "./PreloadFont";
 import Intersectable from "./Intersectable";
@@ -54,27 +55,16 @@ export default function App() {
     undefined,
   );
 
-  const onEnterXr = () => {
-    if (!xrStore) return;
-    xrStore.enterVR().then((session) => {
-      console.log("session:", session);
-      if (!xrSession && session) setXrSession(session);
-    });
-  };
-
   return (
     <main>
       <header>
         <h1>VR Voting</h1>
       </header>
-      <nav id="xr-button-container">
-        <button
-          onClick={onEnterXr}
-          className="special-gothic-condensed-one-regular"
-        >
-          Enter VR
-        </button>
-      </nav>
+      <XRButton
+        store={xrStore}
+        existingSession={xrSession}
+        setSession={setXrSession}
+      />
       <Canvas shadows>
         <XRScene existingStore={xrStore} setXrStore={setXrStore}>
           <>
