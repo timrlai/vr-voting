@@ -2,7 +2,7 @@ import { Hud, PerspectiveCamera } from "@react-three/drei";
 import { Container, Text, type FontFamilies } from "@react-three/uikit";
 
 type InstructionsProps = {
-  fontFamilies: FontFamilies;
+  fontFamilies: FontFamilies | undefined;
   isGrabbed: boolean;
   isOpened: boolean;
   isConfirmed: boolean;
