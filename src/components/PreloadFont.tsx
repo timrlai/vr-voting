@@ -1,7 +1,6 @@
 import { useTTF, type FontFamilies } from "@react-three/uikit";
 
-const specialGothicCondensed =
-  "/fonts/SpecialGothicCondensedOne_Regular_subset.ttf";
+const specialGothicCondensed = "/fonts/SpecialGothicCondensedOne_Regular.ttf";
 
 type PreloadFontProps = {
   setFontFamilies: (fontFamilies: FontFamilies) => void;
