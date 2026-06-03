@@ -66,9 +66,10 @@ export default function App() {
         setSession={setXrSession}
       />
       <Canvas shadows>
-        <PreloadFont setFontFamilies={setFontFamilies} />
         <XRScene existingStore={xrStore} setXrStore={setXrStore}>
           <>
+            <PreloadFont setFontFamilies={setFontFamilies} />
+
             <Intersectable
               position={[0, 0.55, 0]}
               box={box}
