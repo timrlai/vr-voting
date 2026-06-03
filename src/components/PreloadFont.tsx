@@ -1,5 +1,4 @@
 import { useTTF, type FontFamilies } from "@react-three/uikit";
-import { useEffect } from "react";
 
 const specialGothicCondensed =
   "/fonts/SpecialGothicCondensedOne_Regular_subset.ttf";
@@ -11,10 +10,7 @@ type PreloadFontProps = {
 export default function PreloadFont({ setFontFamilies }: PreloadFontProps) {
   const fontFamilies = useTTF(specialGothicCondensed);
 
-  useEffect(() => {
-    if (!fontFamilies) return;
-    setFontFamilies(fontFamilies);
-  }, [setFontFamilies, fontFamilies]);
+  if (fontFamilies) setFontFamilies(fontFamilies);
 
   return null;
 }
