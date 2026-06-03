@@ -68,7 +68,11 @@ export default function App() {
       <Canvas shadows>
         <XRScene existingStore={xrStore} setXrStore={setXrStore}>
           <>
-            <PreloadFont setFontFamilies={setFontFamilies} />
+            <Suspense
+              fallback={<ComponentFallback componentName="PreloadFont" />}
+            >
+              <PreloadFont setFontFamilies={setFontFamilies} />
+            </Suspense>
 
             <Intersectable
               position={[0, 0.55, 0]}
