@@ -9,7 +9,10 @@ type PreloadFontProps = {
 export default function PreloadFont({ setFontFamilies }: PreloadFontProps) {
   const fontFamilies = useTTF(specialGothicCondensed);
 
-  if (fontFamilies) setFontFamilies(fontFamilies);
+  if (fontFamilies) {
+    console.log("Font Families:", fontFamilies);
+    setFontFamilies(fontFamilies);
+  }
 
   return null;
 }
