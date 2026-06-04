@@ -17,6 +17,7 @@ import Ballot from "./Ballot";
 import Room from "./Room";
 import Locomotion from "./Locomotion";
 import Instructions from "./Instructions";
+import LoadingScreen from "./LoadingScreen";
 
 type ComponentFallbackProps = {
   componentName: string;
@@ -49,33 +50,36 @@ export default function App() {
   const [fontFamilies, setFontFamilies] = useState<FontFamilies | undefined>(
     undefined,
   );
+  const [progress, setProgress] = useState(0);
   const [box, setBox] = useState<Box3 | null>(null);
   const [isGrabbed, setIsGrabbed] = useState(false);
   const [isOpened, setIsOpened] = useState(false);
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [isPlaced, setIsPlaced] = useState(false);
+  const loading = !fontFamilies || !xrStore || progress < 100;
 
   return (
     <main>
       <header>
         <h1>VR Voting</h1>
       </header>
-      <div id="loading">
-        <div id="loading-content">
-          <span className="fa-solid fa-circle-xmark fa-spin"></span>
-          <h2>Loading...</h2>
-        </div>
-      </div>
-      <XRButton
-        store={xrStore}
-        existingSession={xrSession}
-        setSession={setXrSession}
-      />
+      {loading && <LoadingScreen progress={progress} />}
+      {!loading && (
+        <XRButton
+          store={xrStore}
+          existingSession={xrSession}
+          setSession={setXrSession}
+        />
+      )}
       <Suspense fallback={<ComponentFallback componentName="PreloadFont" />}>
         <PreloadFont setFontFamilies={setFontFamilies} />
       </Suspense>
       <Canvas shadows>
-        <XRScene existingStore={xrStore} setXrStore={setXrStore}>
+        <XRScene
+          existingStore={xrStore}
+          setXrStore={setXrStore}
+          setProgress={setProgress}
+        >
           <>
             <Intersectable
               position={[0, 0.55, 0]}
