@@ -7,7 +7,6 @@ type PreloadFontProps = {
 };
 
 export default function PreloadFont({ setFontFamilies }: PreloadFontProps) {
-  useTTF.preload(specialGothicCondensed);
   const fontFamilies = useTTF(specialGothicCondensed);
 
   if (fontFamilies) {
