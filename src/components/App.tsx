@@ -46,20 +46,26 @@ function XRComponentFallback({
 export default function App() {
   const [xrStore, setXrStore] = useState<XRStore | null>(null);
   const [xrSession, setXrSession] = useState<XRSession | null>(null);
+  const [fontFamilies, setFontFamilies] = useState<FontFamilies | undefined>(
+    undefined,
+  );
   const [box, setBox] = useState<Box3 | null>(null);
   const [isGrabbed, setIsGrabbed] = useState(false);
   const [isOpened, setIsOpened] = useState(false);
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [isPlaced, setIsPlaced] = useState(false);
-  const [fontFamilies, setFontFamilies] = useState<FontFamilies | undefined>(
-    undefined,
-  );
 
   return (
     <main>
       <header>
         <h1>VR Voting</h1>
       </header>
+      <div id="loading">
+        <div id="loading-content">
+          <span className="fa-solid fa-circle-xmark fa-spin"></span>
+          <h2>Loading...</h2>
+        </div>
+      </div>
       <XRButton
         store={xrStore}
         existingSession={xrSession}

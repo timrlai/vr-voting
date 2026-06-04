@@ -94,11 +94,34 @@ button[disabled]:hover {
 }
 
 #xr-button-container {
-  display: flex;
-  justify-content: center;
-  width: 100svw;
   position: absolute;
   left: 0;
   bottom: 20svh;
   z-index: 1;
+  display: flex;
+  justify-content: center;
+  width: 100svw;
+}
+
+#loading {
+  position: relative;
+}
+
+#loading-content {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100svw;
+  height: 100svh;
+  font-size: 8rem;
+  background: darkred;
+  color: white;
+}
+
+#loading-content h2 {
+  font-size: 4rem;
 }
