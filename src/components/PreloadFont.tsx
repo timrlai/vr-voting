@@ -8,9 +8,9 @@ type PreloadFontProps = {
 };
 
 export default function PreloadFont({ setFontFamilies }: PreloadFontProps) {
-  const fontFamilies = {
+  const fontFamilies: FontFamilies = {
     gothic: {
-      regular: specialGothicCondensed,
+      normal: specialGothicCondensed,
     },
   };
 
