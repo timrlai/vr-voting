@@ -22,58 +22,35 @@ export default function Instructions({
         <group position={[0.5, 0.5, -2]}>
           <Container
             fontFamilies={fontFamilies ?? undefined}
+            fontFamily={fontFamilies ? "gothic" : undefined}
+            fontWeight={fontFamilies ? "normal" : undefined}
             backgroundColor="white"
             borderRadius={5}
             paddingX={10}
             paddingY={5}
           >
             {!isGrabbed && (
-              <Text
-                color="darkred"
-                fontSize={12}
-                fontFamily="gothic"
-                fontWeight="normal"
-              >
+              <Text color="darkred" fontSize={12}>
                 1. Grab ballot
               </Text>
             )}
             {isGrabbed && !isOpened && (
-              <Text
-                color="darkred"
-                fontSize={12}
-                fontFamily="gothic"
-                fontWeight="normal"
-              >
+              <Text color="darkred" fontSize={12}>
                 2. Go behind screen and open ballot
               </Text>
             )}
             {isGrabbed && isOpened && !isConfirmed && (
-              <Text
-                color="darkred"
-                fontSize={12}
-                fontFamily="gothic"
-                fontWeight="normal"
-              >
+              <Text color="darkred" fontSize={12}>
                 3. Mark ballot and confirm
               </Text>
             )}
             {isGrabbed && isOpened && isConfirmed && !isPlaced && (
-              <Text
-                color="darkred"
-                fontSize={12}
-                fontFamily="gothic"
-                fontWeight="normal"
-              >
+              <Text color="darkred" fontSize={12}>
                 4. Put ballot in box
               </Text>
             )}
             {isConfirmed && isPlaced && (
-              <Text
-                color="darkgreen"
-                fontSize={24}
-                fontFamily="gothic"
-                fontWeight="normal"
-              >
+              <Text color="darkgreen" fontSize={24}>
                 You voted!
               </Text>
             )}
