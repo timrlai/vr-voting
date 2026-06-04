@@ -4,7 +4,7 @@ import "./assets/css/index.css";
 import App from "./components/App.tsx";
 import { useTTF } from "@react-three/uikit";
 
-const specialGothicCondensed = "/fonts/SpecialGothicCondensedOne_Regular.ttf";
+const specialGothicCondensed = "/fonts/Roboto_VariableFont_wdth,wght.ttf";
 
 useTTF.preload(specialGothicCondensed);
 
