@@ -103,6 +103,21 @@ button[disabled]:hover {
   width: 100svw;
 }
 
+progress {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 80svw;
+  height: 30px;
+  border-radius: 10px;
+}
+
+progress::-webkit-progress-bar,
+progress::-moz-progress-bar {
+  background-color: darkred;
+  border: 2px solid white;
+  border-radius: 10px;
+}
+
 #loading {
   position: relative;
 }
@@ -115,10 +130,11 @@ button[disabled]:hover {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  gap: 10;
   width: 100svw;
   height: 100svh;
   font-size: 8rem;
-  background: darkred;
+  background: black;
   color: white;
 }
 
