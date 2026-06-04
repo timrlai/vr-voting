@@ -1,4 +1,4 @@
-import { TTFLoader, type FontFamilies } from "@react-three/uikit";
+import { TTFLoader, useTTF, type FontFamilies } from "@react-three/uikit";
 import { useEffect } from "react";
 
 const specialGothicCondensed = "/fonts/SpecialGothicCondensedOne_Regular.ttf";
