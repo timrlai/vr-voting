@@ -17,10 +17,7 @@ export default function PreloadFont({ setFontFamilies }: PreloadFontProps) {
         },
       };
 
-      if (fontFamilies) {
-        console.log("Font Families:", fontFamilies);
-        setFontFamilies(fontFamilies);
-      }
+      if (fontFamilies) setFontFamilies(fontFamilies);
     });
   }, [setFontFamilies]);
 

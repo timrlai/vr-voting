@@ -55,8 +55,6 @@ export default function App() {
     undefined,
   );
 
-  console.log("Global Font Families:", fontFamilies);
-
   return (
     <main>
       <header>
