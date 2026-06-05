@@ -30,10 +30,16 @@ canvas {
   min-height: 100svh;
 }
 
+canvas {
+  position: relative;
+  z-index: -1;
+}
+
 header,
 footer,
 main {
   position: relative;
+  z-index: 2;
 }
 
 h1 {
@@ -126,6 +132,7 @@ progress::-moz-progress-bar {
   position: absolute;
   left: 0;
   top: 0;
+  z-index: 1;
   display: flex;
   justify-content: center;
   align-items: center;
